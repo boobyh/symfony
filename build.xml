@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
-<project name="Symfony2 project" default="build" basedir=".">
+
+<project name="Symfony2 project" default="build" basedir="/home/ogata/dev/symfony">
   <property name="source" value="src"/>
   <property name="ignore" value="build"/>
- 
+
   <target name="clean"
           description="Clean up and create artifact directories">
     <delete dir="${basedir}/build/api"/>
@@ -11,21 +11,21 @@
     <delete dir="${basedir}/build/coverage"/>
     <delete dir="${basedir}/build/logs"/>
     <delete dir="${basedir}/build/pdepend"/>
- 
+
     <mkdir dir="${basedir}/build/api"/>
     <mkdir dir="${basedir}/build/code-browser"/>
     <mkdir dir="${basedir}/build/coverage"/>
     <mkdir dir="${basedir}/build/logs"/>
     <mkdir dir="${basedir}/build/pdepend"/>
   </target>
- 
+
   <target name="phpunit"
           description="Run unit tests using PHPUnit and generates junit.xml and clover.xml">
     <exec executable="phpunit" failonerror="true">
       <arg line="-c build"/>
     </exec>
   </target>
- 
+
   <target name="parallelTasks"
           description="Run the pdepend, phpmd, phpcpd, phpcs, phpdoc and phploc tasks in parallel using a maximum of 2 threads.">
     <parallel threadCount="2">
@@ -39,7 +39,7 @@
       <antcall target="phploc"/>
     </parallel>
   </target>
- 
+
   <target name="pdepend"
           description="Generate jdepend.xml and software metrics charts using PHP_Depend">
     <exec executable="pdepend">
@@ -50,7 +50,7 @@
                  ${source}" />
     </exec>
   </target>
- 
+
   <target name="phpmd"
           description="Generate pmd.xml using PHPMD">
     <exec executable="phpmd">
@@ -61,7 +61,7 @@
                  --reportfile ${basedir}/build/logs/pmd.xml" />
     </exec>
   </target>
- 
+
   <target name="phpcpd"
           description="Generate pmd-cpd.xml using PHPCPD">
     <exec executable="phpcpd">
@@ -70,7 +70,7 @@
                  ${source}" />
     </exec>
   </target>
- 
+
   <target name="phploc"
           description="Generate phploc.csv">
     <exec executable="phploc">
@@ -80,7 +80,7 @@
                  ${source}" />
     </exec>
   </target>
- 
+
   <target name="phpcs"
           description="Generate checkstyle.xml using PHP_CodeSniffer">
     <exec executable="phpcs" output="/dev/null">
@@ -91,14 +91,14 @@
                  ${source}" />
     </exec>
   </target>
- 
+
   <target name="phpdoc"
           description="Generate API documentation using PHPDocumentor">
     <exec executable="phpdoc">
       <arg line="-d ${source} -t ${basedir}/build/api -i ${ignore}" />
     </exec>
   </target>
- 
+
   <target name="phpcb"
           description="Aggregate tool output with PHP_CodeBrowser">
     <exec executable="phpcb">
@@ -109,6 +109,6 @@
                  " />
     </exec>
   </target>
- 
+
   <target name="build" depends="clean,parallelTasks,phpunit,phpcb"/>
 </project>
