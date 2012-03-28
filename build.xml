@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="Symfony2 project" default="build" basedir="/home/ogata/dev/symfony">
+<project name="Symfony2 project" default="build" basedir=".">
   <property name="source" value="src"/>
   <property name="ignore" value="build"/>
 
